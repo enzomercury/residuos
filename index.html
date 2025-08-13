@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoCheck IA — Reciclaje en Tiempo Real</title>
+  <meta name="theme-color" content="#C3001E" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- TensorFlow.js y Teachable Machine Image -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.21.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+  <!-- Fondo -->
+  <div class="bg">
+    <svg class="car" viewBox="0 0 800 300" aria-hidden="true">
+      <defs>
+        <linearGradient id="carRed" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#C3001E"/>
+          <stop offset="100%" stop-color="#FF3B3B"/>
+        </linearGradient>
+        <pattern id="checker" width="20" height="20" patternUnits="userSpaceOnUse">
+          <rect width="10" height="10" fill="#ffffff" />
+          <rect x="10" width="10" height="10" fill="#E9ECEF" />
+          <rect y="10" width="10" height="10" fill="#E9ECEF" />
+          <rect x="10" y="10" width="10" height="10" fill="#ffffff" />
+        </pattern>
+      </defs>
+      <rect x="0" y="0" width="800" height="300" fill="url(#checker)" opacity="0.35"></rect>
+      <path d="M60 210 C120 140, 220 120, 320 130 C380 90, 520 90, 600 140 L720 150 L740 210 Z"
+            fill="url(#carRed)" opacity="0.28"/>
+      <circle cx="220" cy="210" r="38" fill="#fff" opacity="0.8"/>
+      <circle cx="590" cy="210" r="38" fill="#fff" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <header class="site-header">
+    <h1>EcoCheck IA</h1>
+    <p class="subtitle">Apunta la cámara y tu modelo detecta si es <strong>reciclable</strong> o <strong>no reciclable</strong>.</p>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="video-wrap">
+        <canvas id="canvas" width="480" height="360" aria-label="Vista previa"></canvas>
+        <video id="video" playsinline muted></video>
+        <div class="overlay">
+          <div class="status" id="status">Listo para iniciar</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="btnStart" class="btn primary">Iniciar cámara</button>
+        <button id="btnStop" class="btn" disabled>Detener</button>
+        <button id="btnFlip" class="btn" disabled>Cambiar cámara</button>
+      </div>
+
+      <div class="result-card" aria-live="polite">
+        <div class="badge" id="badge">—</div>
+        <div id="bestLabel" class="best-label">Esperando…</div>
+        <div class="bars" id="bars"></div>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <h2>Reciclaje 101</h2>
+      <ul class="tips">
+        <li>🧴 <strong>Plásticos limpios</strong> (botellas, envases): enjuagá antes de reciclar.</li>
+        <li>🧃 <strong>Tetra Brik</strong>: vaciá, aplastá y cerrá.</li>
+        <li>📰 <strong>Papel y cartón</strong>: secos y sin restos de comida.</li>
+        <li>🥫 <strong>Metales</strong>: aplastá las latas para optimizar espacio.</li>
+        <li>🚯 <strong>No reciclables comunes</strong>: servilletas sucias, papeles con grasa.</li>
+      </ul>
+      <p class="note">
+        Tip docente: nombrá tus clases como <code>reciclable</code> y <code>no_reciclable</code> para que el veredicto sea claro.
+      </p>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    Hecho con ❤️ por Docente Ágil · Funciona en HTTPS (GitHub Pages) · Teachable Machine
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
